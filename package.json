@@ -6,18 +6,32 @@
   "engines": {
     "vscode": "^1.109.0"
   },
-  "categories": [
-    "Other"
-  ],
+  "categories": ["Other"],
   "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
-      {
-        "command": "llm-ide.helloWorld",
-        "title": "Hello World"
+      { "command": "llm-ide.openChat",       "title": "LLM IDE: Open Chat" },
+      { "command": "llm-ide.buildIndex",     "title": "LLM IDE: Build Code Index" },
+      { "command": "llm-ide.fixBuildError",  "title": "LLM IDE: Fix Build Error (Agent)" }
+    ],
+    "viewsContainers": {
+      "activitybar": [{ "id": "llm-ide-sidebar", "title": "LLM IDE", "icon": "$(robot)" }]
+    },
+    "views": {
+      "llm-ide-sidebar": [{ "type": "webview", "id": "llm-ide.chatPanel", "name": "Chat" }]
+    },
+    "keybindings": [{ "command": "llm-ide.openChat", "key": "cmd+shift+l" }],
+    "configuration": {
+      "title": "LLM IDE",
+      "properties": {
+        "llm-ide.localModel": {
+          "type": "string",
+          "default": "qwen2.5-coder:32b",
+          "description": "Ollama 로컬 모델 이름"
+        }
       }
-    ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
